@@ -34,7 +34,7 @@
             // 
             // textBox1
             // 
-            textBox1.BackColor = Color.DarkBlue;
+            textBox1.BackColor = SystemColors.ActiveBorder;
             textBox1.BorderStyle = BorderStyle.None;
             textBox1.ForeColor = Color.White;
             textBox1.Location = new Point(12, 12);
@@ -42,11 +42,11 @@
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(454, 81);
             textBox1.TabIndex = 0;
+            textBox1.KeyPress += textBox1_KeyPress;
             // 
             // button1
             // 
-            button1.BackColor = SystemColors.MenuHighlight;
-            button1.FlatStyle = FlatStyle.Flat;
+            button1.BackColor = SystemColors.ButtonFace;
             button1.ForeColor = Color.Black;
             button1.Location = new Point(12, 98);
             button1.Name = "button1";
@@ -60,7 +60,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveCaptionText;
+            BackColor = SystemColors.Window;
             ClientSize = new Size(478, 145);
             Controls.Add(button1);
             Controls.Add(textBox1);

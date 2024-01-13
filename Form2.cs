@@ -1,18 +1,65 @@
-﻿using System.Diagnostics;
-
+﻿using Alice_v._3._2.Properties;
+using System.Diagnostics;
 
 namespace Alice_v._3._1
 {
     public partial class Form2 : Form
     {
-        private string selectedVersion;
+        private string ?selectedVersion;
 
-        public Form2()
+        public Form2(string select)
         {
             InitializeComponent();
-            selectedVersion = Form1.comboBox1.SelectedItem?.ToString();
+            selectedVersion = select;
+            string executablePath = AppDomain.CurrentDomain.BaseDirectory;
+
+            if (selectedVersion != null)
+            {
+                string filePath = Path.Combine(executablePath, "versions", selectedVersion, "server.properties");
+                if (File.Exists(filePath))
+                {
+                    string[] lines = File.ReadAllLines(filePath);
+                    textBox1.Text = Form1.GetServerIp(lines);
+                    textBox2.Text = GetMaxPlayers(lines);
+                    textBox3.Text = GetMotd(lines);
+
+                }
+                else
+                {
+                    MessageBox.Show($"Server Properties file not found in {filePath}");
+                }
+            }
         }
 
+        #region Functions
+        public static string GetMaxPlayers(string[] lines)
+        {
+            foreach (string line in lines)
+            {
+                if (line.StartsWith("max-players="))
+                {
+                    return line.Substring("max-players=".Length).Trim();
+                }
+            }
+
+            return null;
+        }
+
+        public static string GetMotd(string[] lines)
+        {
+            foreach (string line in lines)
+            {
+                if (line.StartsWith("motd="))
+                {
+                    return line.Substring("motd=".Length).Trim();
+                }
+            }
+
+            return null;
+        }
+        #endregion
+
+        #region Events
         private void button1_Click(object sender, EventArgs e)     //OPEN SERVER CONFIG BUTTON
         {
             string executablePath = AppDomain.CurrentDomain.BaseDirectory;
@@ -33,10 +80,8 @@ namespace Alice_v._3._1
             string executablePath = AppDomain.CurrentDomain.BaseDirectory;
             string filePath = Path.Combine(executablePath, "versions", selectedVersion, "server.properties");
 
-            // Read all lines from the file
             string[] lines = File.ReadAllLines(filePath);
 
-            // Update specific lines
             for (int i = 0; i < lines.Length; i++)
             {
                 if (lines[i].StartsWith("server-ip="))
@@ -53,12 +98,14 @@ namespace Alice_v._3._1
                 }
             }
 
-            // Write the modified lines back to the file
             File.WriteAllLines(filePath, lines);
 
             MessageBox.Show("Settings updated successfully..");
 
-            // Close Form3
+            Settings.Default.IP = textBox1.Text;
+            Settings.Default.Players = textBox2.Text;
+            Settings.Default.Motd = textBox3.Text;
+
             this.Close();
         }
 
@@ -66,7 +113,7 @@ namespace Alice_v._3._1
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
             {
-                e.Handled = true; // Cancel the key press event
+                e.Handled = true;
             }
         }
 
@@ -74,8 +121,9 @@ namespace Alice_v._3._1
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
             {
-                e.Handled = true; // Cancel the key press event
+                e.Handled = true;
             }
         }
+        #endregion
     }
 }

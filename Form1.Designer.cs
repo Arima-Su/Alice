@@ -43,7 +43,15 @@
             label2 = new Label();
             pictureBox8 = new PictureBox();
             label3 = new Label();
-            button1 = new Button();
+            listBox1 = new ListBox();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
+            listView1 = new ListView();
+            label7 = new Label();
+            label8 = new Label();
+            textBox1 = new TextBox();
+            label9 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -58,6 +66,7 @@
             // 
             consoleOutput.BackColor = Color.FromArgb(0, 0, 64);
             consoleOutput.BorderStyle = BorderStyle.None;
+            consoleOutput.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             consoleOutput.ForeColor = Color.White;
             consoleOutput.Location = new Point(14, 14);
             consoleOutput.Margin = new Padding(4, 3, 4, 3);
@@ -80,6 +89,7 @@
             // 
             // comboBox1
             // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(14, 433);
             comboBox1.Margin = new Padding(4, 3, 4, 3);
@@ -87,9 +97,11 @@
             comboBox1.Size = new Size(192, 23);
             comboBox1.TabIndex = 2;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            comboBox1.Click += comboBox1_Click;
             // 
             // comboBox2
             // 
+            comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.FormattingEnabled = true;
             comboBox2.Location = new Point(228, 433);
             comboBox2.Margin = new Padding(4, 3, 4, 3);
@@ -119,6 +131,8 @@
             pictureBox3.TabIndex = 5;
             pictureBox3.TabStop = false;
             pictureBox3.Click += pictureBox3_Click;
+            pictureBox3.MouseEnter += pictureBox3_MouseEnter;
+            pictureBox3.MouseLeave += pictureBox3_MouseLeave;
             // 
             // pictureBox4
             // 
@@ -131,6 +145,8 @@
             pictureBox4.TabIndex = 6;
             pictureBox4.TabStop = false;
             pictureBox4.Click += pictureBox4_Click;
+            pictureBox4.MouseEnter += pictureBox4_MouseEnter;
+            pictureBox4.MouseLeave += pictureBox4_MouseLeave;
             // 
             // pictureBox5
             // 
@@ -143,6 +159,8 @@
             pictureBox5.TabIndex = 7;
             pictureBox5.TabStop = false;
             pictureBox5.Click += pictureBox5_Click;
+            pictureBox5.MouseEnter += pictureBox5_MouseEnter;
+            pictureBox5.MouseLeave += pictureBox5_MouseLeave;
             // 
             // pictureBox6
             // 
@@ -155,10 +173,12 @@
             pictureBox6.TabIndex = 8;
             pictureBox6.TabStop = false;
             pictureBox6.Click += pictureBox6_Click;
+            pictureBox6.MouseEnter += pictureBox6_MouseEnter;
+            pictureBox6.MouseLeave += pictureBox6_MouseLeave;
             // 
             // pictureBox7
             // 
-            pictureBox7.BackgroundImage = (Image)resources.GetObject("pictureBox7.BackgroundImage");
+            pictureBox7.BackgroundImage = _2.Properties.Resources.PlayBlank;
             pictureBox7.BackgroundImageLayout = ImageLayout.Zoom;
             pictureBox7.Location = new Point(439, 433);
             pictureBox7.Margin = new Padding(4, 3, 4, 3);
@@ -167,6 +187,8 @@
             pictureBox7.TabIndex = 9;
             pictureBox7.TabStop = false;
             pictureBox7.Click += pictureBox7_Click;
+            pictureBox7.MouseEnter += pictureBox7_MouseEnter;
+            pictureBox7.MouseLeave += pictureBox7_MouseLeave;
             // 
             // label1
             // 
@@ -218,19 +240,130 @@
             label3.Size = new Size(48, 21);
             label3.TabIndex = 13;
             label3.Text = "Start";
-            label3.Click += label3_Click;
+            label3.Click += pictureBox7_Click;
+            label3.MouseEnter += pictureBox7_MouseEnter;
+            label3.MouseLeave += pictureBox7_MouseLeave;
             // 
-            // button1
+            // listBox1
             // 
-            button1.BackColor = Color.FromArgb(0, 192, 192);
-            button1.FlatStyle = FlatStyle.Flat;
-            button1.Location = new Point(718, 14);
-            button1.Name = "button1";
-            button1.Size = new Size(164, 38);
-            button1.TabIndex = 14;
-            button1.Text = "Console";
-            button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click;
+            listBox1.BackColor = Color.SkyBlue;
+            listBox1.BorderStyle = BorderStyle.None;
+            listBox1.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            listBox1.FormattingEnabled = true;
+            listBox1.ItemHeight = 16;
+            listBox1.Location = new Point(718, 48);
+            listBox1.Name = "listBox1";
+            listBox1.Size = new Size(164, 288);
+            listBox1.TabIndex = 15;
+            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
+            // 
+            // label4
+            // 
+            label4.BackColor = Color.SkyBlue;
+            label4.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label4.Location = new Point(718, 9);
+            label4.Margin = new Padding(0);
+            label4.Name = "label4";
+            label4.Size = new Size(164, 32);
+            label4.TabIndex = 16;
+            label4.Text = "Settings:";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            label5.BackColor = Color.SkyBlue;
+            label5.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label5.Location = new Point(718, 384);
+            label5.Name = "label5";
+            label5.Size = new Size(164, 32);
+            label5.TabIndex = 17;
+            label5.Text = "Console";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            label5.Click += button1_Click;
+            label5.MouseEnter += label5_MouseEnter;
+            label5.MouseLeave += label5_MouseLeave;
+            // 
+            // label6
+            // 
+            label6.BackColor = Color.SkyBlue;
+            label6.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label6.Location = new Point(718, 344);
+            label6.Name = "label6";
+            label6.Size = new Size(164, 32);
+            label6.TabIndex = 18;
+            label6.Text = "Kick";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
+            label6.Click += label6_Click;
+            label6.MouseEnter += label6_MouseEnter;
+            label6.MouseLeave += label6_MouseLeave;
+            // 
+            // listView1
+            // 
+            listView1.BackColor = Color.FromArgb(0, 0, 64);
+            listView1.BorderStyle = BorderStyle.None;
+            listView1.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            listView1.ForeColor = Color.White;
+            listView1.Location = new Point(0, 14);
+            listView1.Margin = new Padding(30);
+            listView1.MultiSelect = false;
+            listView1.Name = "listView1";
+            listView1.Size = new Size(700, 402);
+            listView1.TabIndex = 21;
+            listView1.TileSize = new Size(200, 200);
+            listView1.UseCompatibleStateImageBehavior = false;
+            listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
+            listView1.DoubleClick += listView1_DoubleClick;
+            // 
+            // label7
+            // 
+            label7.BackColor = Color.SkyBlue;
+            label7.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label7.Location = new Point(718, 48);
+            label7.Name = "label7";
+            label7.Size = new Size(164, 32);
+            label7.TabIndex = 22;
+            label7.Text = "Add Icon";
+            label7.TextAlign = ContentAlignment.MiddleCenter;
+            label7.Click += label7_Click;
+            label7.MouseEnter += label7_MouseEnter;
+            label7.MouseLeave += label7_MouseLeave;
+            // 
+            // label8
+            // 
+            label8.BackColor = Color.SkyBlue;
+            label8.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label8.Location = new Point(718, 80);
+            label8.Name = "label8";
+            label8.Size = new Size(164, 32);
+            label8.TabIndex = 23;
+            label8.Text = "Rename";
+            label8.TextAlign = ContentAlignment.MiddleCenter;
+            label8.Click += label8_Click;
+            label8.MouseEnter += label8_MouseEnter;
+            label8.MouseLeave += label8_MouseLeave;
+            // 
+            // textBox1
+            // 
+            textBox1.Font = new Font("Bahnschrift SemiBold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox1.Location = new Point(726, 83);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(149, 26);
+            textBox1.TabIndex = 24;
+            textBox1.KeyDown += textBox1_KeyDown;
+            // 
+            // label9
+            // 
+            label9.BackColor = Color.SkyBlue;
+            label9.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label9.Location = new Point(718, 112);
+            label9.Name = "label9";
+            label9.Size = new Size(164, 32);
+            label9.TabIndex = 25;
+            label9.Text = "Delete";
+            label9.TextAlign = ContentAlignment.MiddleCenter;
+            label9.Click += label9_Click;
+            label9.MouseEnter += label9_MouseEnter;
+            label9.MouseLeave += label9_MouseLeave;
             // 
             // Form1
             // 
@@ -238,7 +371,15 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 64);
             ClientSize = new Size(894, 490);
-            Controls.Add(button1);
+            Controls.Add(listBox1);
+            Controls.Add(label9);
+            Controls.Add(textBox1);
+            Controls.Add(label8);
+            Controls.Add(label7);
+            Controls.Add(listView1);
+            Controls.Add(label6);
+            Controls.Add(label5);
+            Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(pictureBox8);
             Controls.Add(label2);
@@ -259,7 +400,7 @@
             MaximizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Alice v.3.1";
+            Text = "Alice v.3.2";
             FormClosing += Form1_FormClosing;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
@@ -288,8 +429,16 @@
         private Label label2;
         private PictureBox pictureBox8;
         private Label label3;
-        private Button button1;
-        public static ComboBox comboBox1;
+        public ComboBox comboBox1;
+        private ListBox listBox1;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private ListView listView1;
+        private Label label7;
+        private Label label8;
+        private TextBox textBox1;
+        private Label label9;
     }
 }
 

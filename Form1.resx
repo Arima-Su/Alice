@@ -158,7 +158,7 @@
   <data name="pictureBox4.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADwAAABGCAIAAAAfJ2CCAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAAAKlJREFUaEPt00EKxCAMQNE5YC8zx+oprTAJBDctrX4o88NfuYgPwc93316XaCrR
+        vAAADrwBlbxySQAAAKlJREFUaEPt00EKxCAMQNE5YC8zx+oprTAJBDctrX4o88NfuYgPwc93316XaCrR
         VKKpRFOJphJNJZpKNJVoKtFUokutteFkYkvQXfyb4XxWorMgi66JzoIsuiY6C7Lo2k10oJ7NsPN6d9Bx
         54wZNl/sb176tED5EWuisyCLronOgiy6JjoL8rvQvXXi3ir00kRTiaYSTSWaSjSVaCrRVKKpRFOJphLN
         tG8HJXzGPTMmCAMAAAAASUVORK5CYII=
@@ -190,16 +190,6 @@
         2L5eMxvS43p5RuvJYGnR2VlrlcYv+jQK5HV6kMHSoiv5phntgNFqjFZjtLNM0cf3u/J5DzJYQnQU98xX
         s5Al1lolz+iVwxn5jbUinMi4LLHWKnlGl4vRKIxGYTQKo1EYjcJoFEajMBqF0SiMRmE0SgWjg9ovHX89
         c7+oiW8AAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="pictureBox7.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAPAAAAAzCAIAAAAmSxLfAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wAAADsABataJCQAAANtJREFUeF7t1jsKAjEUQNEsS8HPZqdwCVqJlY2bEDtxEaaeHczlwAmBl/YS3vg9
-        zpAhaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCk
-        CJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRnf+2k1
-        gu0an9txNYKNel+P43XZ+6QJmBnPmMdj2c/rfT2snmErZspz0ZgZP5fdmAcyBE2KoAlZdn/MdxnMbbCF
-        tQAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="pictureBox8.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

@@ -10,6 +10,7 @@ namespace Alice_v._3._2
             InitializeComponent();
         }
 
+        #region Controls
         private async void button1_Click(object sender, EventArgs e)
         {
             string message = textBox1.Text;
@@ -34,16 +35,13 @@ namespace Alice_v._3._2
 
                         if (!string.IsNullOrEmpty(serverctxIp))
                         {
-                            string serverIp = $"{serverctxIp}"; // Replace with your server IP
-                            int serverPort = 25575; // Replace with your server RCON port
-                                                    //string rconPassword = ""; // Replace with your RCON password
+                            string serverIp = $"{serverctxIp}";
+                            int serverPort = 25575;
 
                             var client = RconClient.Create($"{serverIp}", serverPort);
 
-                            // Open the connection
                             await client.ConnectAsync();
 
-                            // Send a RCON packet with type AUTH and the RCON password for the target server
                             var authenticated = await client.AuthenticateAsync("727");
                             if (authenticated)
                             {
@@ -52,7 +50,6 @@ namespace Alice_v._3._2
                         }
                         else
                         {
-                            // The server IP value was not found in the file
                             MessageBox.Show("Server IP value not found in server.properties");
                         }
                     }
@@ -71,5 +68,11 @@ namespace Alice_v._3._2
                 MessageBox.Show("Please pick a version first");
             }
         }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            button1_Click(sender, e);
+        }
+        #endregion
     }
 }
