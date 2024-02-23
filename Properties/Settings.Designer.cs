@@ -82,5 +82,17 @@ namespace Alice_v._3._2.Properties {
                 this["Motd"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("104")]
+        public int LauncherVersion {
+            get {
+                return ((int)(this["LauncherVersion"]));
+            }
+            set {
+                this["LauncherVersion"] = value;
+            }
+        }
     }
 }

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="ObjectListView.Official" Version="2.9.1" />
     <PackageReference Include="RconSharp" Version="2.0.1" />
     <PackageReference Include="System.Management" Version="7.0.2" />

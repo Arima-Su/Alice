@@ -4,6 +4,8 @@ using System.Text.RegularExpressions;
 using Alice_v._3._2;
 using Alice_v._3._2.Properties;
 using RconSharp;
+using Newtonsoft.Json;
+using System;
 
 namespace Alice_v._3._1
 {
@@ -892,5 +894,88 @@ namespace Alice_v._3._1
             return null; // Server IP value not found
         }
         #endregion
+
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+            string releasesUrl = $"https://api.github.com/repos/Arima-Su/Alice-v.3.2/releases/latest";
+            var httpClient = new HttpClient();
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "GitHubReleaseDownloader");
+
+            HttpResponseMessage response = await httpClient.GetAsync(releasesUrl);
+            response.EnsureSuccessStatusCode();
+
+            var responseBody = await response.Content.ReadAsStringAsync();
+
+            GitHubReleaseInfo? releaseInfo = JsonConvert.DeserializeObject<GitHubReleaseInfo>(responseBody);
+
+            if (releaseInfo == null)
+            {
+                MessageBox.Show("Update encountered an error.");
+                return;
+            }
+
+            string latestVersion = releaseInfo.tag_name;
+            string[] parts = latestVersion.Split('.');
+            int intVersion = int.Parse(string.Concat(parts));
+            int installIndex = -1;
+
+            if (intVersion <= Settings.Default.LauncherVersion)
+            {
+                return;
+            }
+
+            DialogResult consent = MessageBox.Show($"Update available, install now?", latestVersion, MessageBoxButtons.OKCancel);
+
+            if (consent == DialogResult.OK)
+            {
+                for (int i = 0; i < releaseInfo.assets.Count(); i++)
+                {
+                    if (releaseInfo.assets[i].name == "update.exe")
+                    {
+                        installIndex = i;
+                        break;
+                    }
+                }
+
+                if (installIndex == -1)
+                {
+                    MessageBox.Show("Update could not be found in the repo, contact @Arimasu for details.");
+                    return;
+                }
+
+                string downloadUrl = releaseInfo.assets[installIndex].browser_download_url;
+
+                // Download the asset
+                HttpResponseMessage assetResponse = await httpClient.GetAsync(downloadUrl);
+                assetResponse.EnsureSuccessStatusCode();
+
+                byte[] assetBytes = await assetResponse.Content.ReadAsByteArrayAsync();
+
+                // Save the asset to a file
+                File.WriteAllBytes(releaseInfo.assets[installIndex].name, assetBytes);
+
+                DialogResult result = MessageBox.Show($"Update ready, install now?", "", MessageBoxButtons.OK);
+
+                if (result == DialogResult.OK)
+                {
+                    Settings.Default.LauncherVersion = intVersion;
+                    Process.Start(releaseInfo.assets[installIndex].name);
+                    await Task.Delay(500);
+                    Program.Die();
+                }
+            }
+        }
+    }
+
+    public class GitHubReleaseInfo
+    {
+        public string tag_name { get; set; }
+        public GitHubReleaseAsset[] assets { get; set; }
+    }
+
+    public class GitHubReleaseAsset
+    {
+        public string name { get; set; }
+        public string browser_download_url { get; set; }
     }
 }

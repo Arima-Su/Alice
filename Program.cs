@@ -48,5 +48,10 @@ namespace Alice_v._3._1
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        public static void Die()
+        {
+            Application.Exit();
+        }
     }
 }
