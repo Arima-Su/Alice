@@ -18,7 +18,7 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="LauncherVersion" Type="System.Int32" Scope="User">
-      <Value Profile="(Default)">104</Value>
+      <Value Profile="(Default)">106</Value>
     </Setting>
   </Settings>
 </SettingsFile>

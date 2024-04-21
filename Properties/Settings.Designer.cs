@@ -85,7 +85,7 @@ namespace Alice_v._3._2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("104")]
+        [global::System.Configuration.DefaultSettingValueAttribute("106")]
         public int LauncherVersion {
             get {
                 return ((int)(this["LauncherVersion"]));

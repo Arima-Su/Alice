@@ -14,11 +14,12 @@ namespace Alice_v._3._1
         #region Variables
         private string selectedLaunchType = Settings.Default.StartType;
         public static string? selectedVersion = Settings.Default.Version;
-        private Process? Launcher;
+        public static Process? Launcher;
         private bool Started = false;
         private string Alice = "";
         private int playerCount = 0;
         private ImageList? imageList;
+        private Dictionary<string, string> UID;
         #endregion
 
         //MAIN MENU
@@ -162,18 +163,57 @@ namespace Alice_v._3._1
                 }
                 if (e.Data.Contains("logged in with entity id") && e.Data.Contains("PlayerList"))
                 {
-                    Match match = Regex.Match(e.Data, @"\]: (\w+)(?=\[)");
+                    //Match match = Regex.Match(e.Data, @"\]: (\w+)(?=\[)");
+                    ////[18:00:52] [Server thread/INFO] [net.minecraft.server.management.PlayerList]: Celery25[/25.17.12.253:54440] logged in with entity id 347 at (1313.8571287736231, 96.0, 1519.1311725135174)
+                    //// Check if the match was successful
+                    //if (match.Success)
+                    //{
+                    //    // Extract the player name from the match
+                    //    string playerName = match.Groups[1].Value;
 
-                    // Check if the match was successful
+                    //    // Print the result
+                    //    listBox1.Items.Add(playerName);
+                    //    playerCount++;
+                    //    label4.Text = $"Players: {playerCount}";
+                    //}
+                    // Define the regex pattern to match "Celery25" and "25.17.12.253"
+                    string pattern = @"\b(\w+)(?:\[\/)(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})";
+
+                    // Create a regex object
+                    Regex regex = new Regex(pattern);
+
+                    // Match the pattern in the input string
+                    Match match = regex.Match(e.Data);
+
+                    // Check if the match is successful
                     if (match.Success)
                     {
-                        // Extract the player name from the match
-                        string playerName = match.Groups[1].Value;
+                        // Get the username and IP address from the match groups
+                        string username = match.Groups[1].Value;
+                        string ipAddress = match.Groups[2].Value;
 
-                        // Print the result
-                        listBox1.Items.Add(playerName);
+                        listBox1.Items.Add(username);
                         playerCount++;
                         label4.Text = $"Players: {playerCount}";
+
+                        if (UID.ContainsKey(username))
+                        {
+                            if (UID[username] != ipAddress)
+                            {
+                                await RconExecute($"/kick {username} You do not have access to this account.");
+                            }
+                        }
+                        else
+                        {
+                            UID.Add(ipAddress, username);
+                        }
+                        
+                        Console.WriteLine("Username: " + username);
+                        Console.WriteLine("IP Address: " + ipAddress);
+                    }
+                    else
+                    {
+                        Console.WriteLine("No match found.");
                     }
                 }
                 if (e.Data.Contains("lost connection"))
@@ -323,43 +363,40 @@ namespace Alice_v._3._1
                 Started = true;
                 label3.Text = "Stop";
                 consoleOutput.Clear();
+
                 if (selectedLaunchType == "Push Start")                  //PUSH START
                 {
                     await AliceSend("The server is starting yo..");
-
-                    string executablePath = AppDomain.CurrentDomain.BaseDirectory;
-                    string server = Path.Combine(executablePath, "versions", selectedVersion);
-                    string java = Path.Combine(executablePath, "Java", "bin", "java.exe");
-
-                    Launcher = new Process();
-                    Launcher.StartInfo.FileName = $"{java}";
-                    Launcher.StartInfo.Arguments = $"-Xmx4G -Xms2G -XX:+UseG1GC -jar server.jar --nogui --world sekai";
-                    Launcher.StartInfo.WorkingDirectory = server;
-                    Launcher.StartInfo.RedirectStandardOutput = true;
-                    Launcher.StartInfo.UseShellExecute = false;
-                    Launcher.StartInfo.CreateNoWindow = true;
-                    Launcher.OutputDataReceived += Process_OutputDataReceived;
-
-                    Launcher.Start();
-                    Launcher.BeginOutputReadLine();
                 }
-                else                                                     //SILENT START
+
+                string executablePath = AppDomain.CurrentDomain.BaseDirectory;
+                string server = Path.Combine(executablePath, "versions", selectedVersion);
+                string java = Path.Combine(executablePath, "Java", "bin", "java.exe");
+
+                Launcher = new Process();
+                Launcher.StartInfo.FileName = $"{java}";
+                Launcher.StartInfo.Arguments = $"-Xmx4G -Xms2G -XX:+UseG1GC -jar server.jar --nogui --world sekai";
+                Launcher.StartInfo.WorkingDirectory = server;
+                Launcher.StartInfo.RedirectStandardOutput = true;
+                Launcher.StartInfo.RedirectStandardInput = true;
+                Launcher.StartInfo.UseShellExecute = false;
+                Launcher.StartInfo.CreateNoWindow = true;
+                Launcher.OutputDataReceived += Process_OutputDataReceived;
+
+                Launcher.Start();
+                Launcher.BeginOutputReadLine();
+
+                //VALIDATE UIDS
+                var IDs = Path.Combine(executablePath, "versions", selectedVersion, "UID.json");
+
+                if (File.Exists(IDs))
                 {
-                    string executablePath = AppDomain.CurrentDomain.BaseDirectory;
-                    string server = Path.Combine(executablePath, "versions", selectedVersion);
-                    string java = Path.Combine(executablePath, "Java", "bin", "java.exe");
-
-                    Launcher = new Process();
-                    Launcher.StartInfo.FileName = $"{java}";
-                    Launcher.StartInfo.Arguments = $"-Xmx4G -Xms2G -XX:+UseG1GC -jar server.jar --nogui --world sekai";
-                    Launcher.StartInfo.WorkingDirectory = server;
-                    Launcher.StartInfo.RedirectStandardOutput = true;
-                    Launcher.StartInfo.UseShellExecute = false;
-                    Launcher.StartInfo.CreateNoWindow = true;
-                    Launcher.OutputDataReceived += Process_OutputDataReceived;
-
-                    Launcher.Start();
-                    Launcher.BeginOutputReadLine();
+                    string UIDs = File.ReadAllText(IDs);
+                    UID = JsonConvert.DeserializeObject<Dictionary<string, string>>(UIDs);
+                }
+                else
+                {
+                    UID = new Dictionary<string, string>();
                 }
             }
             else
@@ -373,6 +410,9 @@ namespace Alice_v._3._1
                     label4.Text = "Settings:";
                     label5.Visible = false;
                     label6.Visible = false;
+
+                    string json = JsonConvert.SerializeObject(UID, Formatting.Indented);
+                    File.WriteAllText("UID.json", json);
                 }
                 catch
                 {
@@ -848,37 +888,27 @@ namespace Alice_v._3._1
             }
         }
 
-        private async Task RconExecute(string message)
+        private Task RconExecute(string message)
         {
-            string executablePath = AppDomain.CurrentDomain.BaseDirectory;
-
-            if (selectedVersion != null)
+            if (Launcher == null)
             {
-                string filePath = Path.Combine(executablePath, "versions", selectedVersion, "server.properties");
-                if (File.Exists(filePath))
+                MessageBox.Show("Java has not started yet..");
+                return Task.CompletedTask;
+            }
+            else
+            {
+                StreamWriter writer = Launcher.StandardInput;
+                if (writer != null)
                 {
-                    string[] lines = File.ReadAllLines(filePath);
-                    string serverctxIp = GetServerIp(lines);
-
-                    if (!string.IsNullOrEmpty(serverctxIp))
-                    {
-                        string serverIp = $"{serverctxIp}";
-                        int serverPort = 25575;
-
-                        var client = RconClient.Create($"{serverIp}", serverPort);
-
-                        // Open the connection
-                        await client.ConnectAsync();
-
-                        // Send a RCON packet with type AUTH and the RCON password for the target server
-                        var authenticated = await client.AuthenticateAsync("727");
-                        if (authenticated)
-                        {
-                            await client.ExecuteCommandAsync($"{message}");
-                        }
-                    }
+                    writer.WriteLine(message);
+                }
+                else
+                {
+                    MessageBox.Show("Standard input redirection is not enabled.");
                 }
             }
+
+            return Task.CompletedTask;
         }
 
         public static string GetServerIp(string[] lines)

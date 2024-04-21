@@ -23,55 +23,34 @@ namespace Alice_v._3._2
                 return;
             }
 
-            if (Form1.selectedVersion != null)
+            if (Form1.Launcher == null)
             {
-                try
-                {
-                    string filePath = Path.Combine(executablePath, "versions", Form1.selectedVersion, "server.properties");
-                    if (File.Exists(filePath))
-                    {
-                        string[] lines = File.ReadAllLines(filePath);
-                        string serverctxIp = Form1.GetServerIp(lines);
-
-                        if (!string.IsNullOrEmpty(serverctxIp))
-                        {
-                            string serverIp = $"{serverctxIp}";
-                            int serverPort = 25575;
-
-                            var client = RconClient.Create($"{serverIp}", serverPort);
-
-                            await client.ConnectAsync();
-
-                            var authenticated = await client.AuthenticateAsync("727");
-                            if (authenticated)
-                            {
-                                await client.ExecuteCommandAsync($"{message}");
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Server IP value not found in server.properties");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Server Properties file not found in {filePath}");
-                    }
-                }
-                catch
-                {
-                    MessageBox.Show("Well that failed, you can try again tho..");
-                }
+                MessageBox.Show("Java has not started yet..");
+                return;
             }
             else
             {
-                MessageBox.Show("Please pick a version first");
+                StreamWriter writer = Form1.Launcher.StandardInput;
+                if (writer != null)
+                {
+                    writer.WriteLine(message);
+                    textBox1.Clear();
+                }
+                else
+                {
+                    MessageBox.Show("Standard input redirection is not enabled.");
+                }
             }
+
+            return;
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            button1_Click(sender, e);
+            if (e.KeyChar == '\r')
+            {
+                button1_Click(sender, e);
+            }
         }
         #endregion
     }
