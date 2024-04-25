@@ -163,20 +163,6 @@ namespace Alice_v._3._1
                 }
                 if (e.Data.Contains("logged in with entity id") && e.Data.Contains("PlayerList"))
                 {
-                    //Match match = Regex.Match(e.Data, @"\]: (\w+)(?=\[)");
-                    ////[18:00:52] [Server thread/INFO] [net.minecraft.server.management.PlayerList]: Celery25[/25.17.12.253:54440] logged in with entity id 347 at (1313.8571287736231, 96.0, 1519.1311725135174)
-                    //// Check if the match was successful
-                    //if (match.Success)
-                    //{
-                    //    // Extract the player name from the match
-                    //    string playerName = match.Groups[1].Value;
-
-                    //    // Print the result
-                    //    listBox1.Items.Add(playerName);
-                    //    playerCount++;
-                    //    label4.Text = $"Players: {playerCount}";
-                    //}
-                    // Define the regex pattern to match "Celery25" and "25.17.12.253"
                     string pattern = @"\b(\w+)(?:\[\/)(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})";
 
                     // Create a regex object
@@ -205,7 +191,7 @@ namespace Alice_v._3._1
                         }
                         else
                         {
-                            UID.Add(ipAddress, username);
+                            UID.Add(username, ipAddress);
                         }
                         
                         Console.WriteLine("Username: " + username);
