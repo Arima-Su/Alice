@@ -1,6 +1,6 @@
 ﻿namespace Alice_v._3._1
 {
-    partial class Form1
+    partial class LauncherMain
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LauncherMain));
             consoleOutput = new TextBox();
             pictureBox1 = new PictureBox();
             comboBox1 = new ComboBox();
@@ -45,13 +45,19 @@
             label3 = new Label();
             listBox1 = new ListBox();
             label4 = new Label();
-            label5 = new Label();
             label6 = new Label();
             listView1 = new ListView();
             label7 = new Label();
             label8 = new Label();
             textBox1 = new TextBox();
             label9 = new Label();
+            label10 = new Label();
+            label11 = new Label();
+            chatToggle = new Label();
+            chatBox = new TextBox();
+            textBox2 = new TextBox();
+            label12 = new Label();
+            label13 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -68,13 +74,14 @@
             consoleOutput.BorderStyle = BorderStyle.None;
             consoleOutput.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
             consoleOutput.ForeColor = Color.White;
-            consoleOutput.Location = new Point(14, 14);
+            consoleOutput.Location = new Point(14, 24);
             consoleOutput.Margin = new Padding(4, 3, 4, 3);
             consoleOutput.Multiline = true;
             consoleOutput.Name = "consoleOutput";
             consoleOutput.ReadOnly = true;
-            consoleOutput.Size = new Size(670, 402);
+            consoleOutput.Size = new Size(670, 392);
             consoleOutput.TabIndex = 0;
+            consoleOutput.TabStop = false;
             consoleOutput.Text = "Console";
             // 
             // pictureBox1
@@ -90,6 +97,7 @@
             // comboBox1
             // 
             comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.Enabled = false;
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(14, 433);
             comboBox1.Margin = new Padding(4, 3, 4, 3);
@@ -97,12 +105,14 @@
             comboBox1.Size = new Size(192, 23);
             comboBox1.TabIndex = 2;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            comboBox1.EnabledChanged += comboBox1_EnabledChanged;
             comboBox1.Click += comboBox1_Click;
             // 
             // comboBox2
             // 
             comboBox2.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBox2.FormattingEnabled = true;
+            comboBox2.Items.AddRange(new object[] { "Push Start", "Silent Start" });
             comboBox2.Location = new Point(228, 433);
             comboBox2.Margin = new Padding(4, 3, 4, 3);
             comboBox2.Name = "comboBox2";
@@ -269,20 +279,6 @@
             label4.Text = "Settings:";
             label4.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label5
-            // 
-            label5.BackColor = Color.SkyBlue;
-            label5.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label5.Location = new Point(718, 384);
-            label5.Name = "label5";
-            label5.Size = new Size(164, 32);
-            label5.TabIndex = 17;
-            label5.Text = "Console";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
-            label5.Click += button1_Click;
-            label5.MouseEnter += label5_MouseEnter;
-            label5.MouseLeave += label5_MouseLeave;
-            // 
             // label6
             // 
             label6.BackColor = Color.SkyBlue;
@@ -293,6 +289,7 @@
             label6.TabIndex = 18;
             label6.Text = "Kick";
             label6.TextAlign = ContentAlignment.MiddleCenter;
+            label6.VisibleChanged += label6_VisibleChanged;
             label6.Click += label6_Click;
             label6.MouseEnter += label6_MouseEnter;
             label6.MouseLeave += label6_MouseLeave;
@@ -312,13 +309,13 @@
             listView1.TileSize = new Size(200, 200);
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.SelectedIndexChanged += listView1_SelectedIndexChanged;
-            listView1.DoubleClick += listView1_DoubleClick;
+            listView1.VisibleChanged += listBox1_VisibleChanged;
             // 
             // label7
             // 
             label7.BackColor = Color.SkyBlue;
             label7.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label7.Location = new Point(718, 48);
+            label7.Location = new Point(718, 80);
             label7.Name = "label7";
             label7.Size = new Size(164, 32);
             label7.TabIndex = 22;
@@ -332,7 +329,7 @@
             // 
             label8.BackColor = Color.SkyBlue;
             label8.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label8.Location = new Point(718, 80);
+            label8.Location = new Point(718, 112);
             label8.Name = "label8";
             label8.Size = new Size(164, 32);
             label8.TabIndex = 23;
@@ -345,7 +342,7 @@
             // textBox1
             // 
             textBox1.Font = new Font("Bahnschrift SemiBold", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            textBox1.Location = new Point(726, 83);
+            textBox1.Location = new Point(726, 115);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(149, 26);
             textBox1.TabIndex = 24;
@@ -355,7 +352,7 @@
             // 
             label9.BackColor = Color.SkyBlue;
             label9.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
-            label9.Location = new Point(718, 112);
+            label9.Location = new Point(718, 144);
             label9.Name = "label9";
             label9.Size = new Size(164, 32);
             label9.TabIndex = 25;
@@ -365,20 +362,124 @@
             label9.MouseEnter += label9_MouseEnter;
             label9.MouseLeave += label9_MouseLeave;
             // 
+            // label10
+            // 
+            label10.BackColor = Color.SkyBlue;
+            label10.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label10.Location = new Point(718, 48);
+            label10.Name = "label10";
+            label10.Size = new Size(164, 32);
+            label10.TabIndex = 27;
+            label10.Text = "Configure";
+            label10.TextAlign = ContentAlignment.MiddleCenter;
+            label10.Click += label10_Click;
+            label10.MouseEnter += label10_MouseEnter;
+            label10.MouseLeave += label10_MouseLeave;
+            // 
+            // label11
+            // 
+            label11.BackColor = Color.Transparent;
+            label11.Font = new Font("Cascadia Code", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            label11.ForeColor = Color.OrangeRed;
+            label11.Location = new Point(0, -7);
+            label11.Margin = new Padding(0);
+            label11.Name = "label11";
+            label11.Size = new Size(27, 28);
+            label11.TabIndex = 28;
+            label11.Text = "•";
+            label11.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // chatToggle
+            // 
+            chatToggle.BackColor = Color.SkyBlue;
+            chatToggle.Font = new Font("Bahnschrift SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            chatToggle.Location = new Point(718, 384);
+            chatToggle.Name = "chatToggle";
+            chatToggle.Size = new Size(164, 32);
+            chatToggle.TabIndex = 29;
+            chatToggle.Text = "Chat";
+            chatToggle.TextAlign = ContentAlignment.MiddleCenter;
+            chatToggle.Click += chatToggle_Click;
+            chatToggle.MouseEnter += chatToggle_MouseEnter;
+            chatToggle.MouseLeave += chatToggle_MouseLeave;
+            // 
+            // chatBox
+            // 
+            chatBox.BackColor = Color.FromArgb(0, 0, 64);
+            chatBox.BorderStyle = BorderStyle.None;
+            chatBox.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            chatBox.ForeColor = Color.White;
+            chatBox.Location = new Point(14, 24);
+            chatBox.Margin = new Padding(4, 3, 4, 3);
+            chatBox.Multiline = true;
+            chatBox.Name = "chatBox";
+            chatBox.ReadOnly = true;
+            chatBox.Size = new Size(670, 392);
+            chatBox.TabIndex = 30;
+            chatBox.TabStop = false;
+            chatBox.Text = "Disconnected";
+            // 
+            // textBox2
+            // 
+            textBox2.BackColor = Color.MidnightBlue;
+            textBox2.BorderStyle = BorderStyle.None;
+            textBox2.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            textBox2.ForeColor = Color.White;
+            textBox2.Location = new Point(48, 384);
+            textBox2.Multiline = true;
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(547, 23);
+            textBox2.TabIndex = 31;
+            textBox2.KeyPress += textBox2_KeyPress;
+            // 
+            // label12
+            // 
+            label12.BackColor = Color.MidnightBlue;
+            label12.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label12.ForeColor = Color.White;
+            label12.Location = new Point(14, 384);
+            label12.Name = "label12";
+            label12.Padding = new Padding(7, 2, 0, 0);
+            label12.Size = new Size(28, 23);
+            label12.TabIndex = 32;
+            label12.Text = "/";
+            label12.Click += label12_Click;
+            // 
+            // label13
+            // 
+            label13.BackColor = Color.MidnightBlue;
+            label13.Font = new Font("Cascadia Code SemiBold", 9.75F, FontStyle.Bold, GraphicsUnit.Point);
+            label13.ForeColor = Color.White;
+            label13.Location = new Point(601, 384);
+            label13.Name = "label13";
+            label13.Padding = new Padding(7, 2, 0, 0);
+            label13.Size = new Size(83, 23);
+            label13.TabIndex = 33;
+            label13.Text = "Send >";
+            label13.Click += label13_Click;
+            label13.MouseEnter += label13_MouseEnter;
+            label13.MouseLeave += label13_MouseLeave;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 0, 64);
             ClientSize = new Size(894, 490);
+            Controls.Add(label13);
+            Controls.Add(label12);
+            Controls.Add(textBox2);
+            Controls.Add(chatBox);
+            Controls.Add(chatToggle);
+            Controls.Add(label11);
             Controls.Add(listBox1);
+            Controls.Add(label10);
             Controls.Add(label9);
             Controls.Add(textBox1);
             Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(listView1);
             Controls.Add(label6);
-            Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(pictureBox8);
@@ -400,7 +501,7 @@
             MaximizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Alice v.3.2";
+            Text = "Alice";
             FormClosing += Form1_FormClosing;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -433,13 +534,19 @@
         public ComboBox comboBox1;
         private ListBox listBox1;
         private Label label4;
-        private Label label5;
         private Label label6;
         private ListView listView1;
         private Label label7;
         private Label label8;
         private TextBox textBox1;
         private Label label9;
+        private Label label10;
+        private Label label11;
+        private Label chatToggle;
+        private TextBox chatBox;
+        private TextBox textBox2;
+        private Label label12;
+        private Label label13;
     }
 }
 

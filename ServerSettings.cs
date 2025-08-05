@@ -1,13 +1,15 @@
 ﻿using Alice_v._3._2.Properties;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace Alice_v._3._1
 {
-    public partial class Form2 : Form
+    public partial class ServerSettings : Form
     {
-        private string ?selectedVersion;
+        private string? selectedVersion;
+        private Dictionary<string, string> UID = new Dictionary<string, string>();
 
-        public Form2(string select)
+        public ServerSettings(string select)
         {
             InitializeComponent();
             selectedVersion = select;
@@ -19,7 +21,7 @@ namespace Alice_v._3._1
                 if (File.Exists(filePath))
                 {
                     string[] lines = File.ReadAllLines(filePath);
-                    textBox1.Text = Form1.GetServerIp(lines);
+                    textBox1.Text = LauncherMain.GetServerIp(lines);
                     textBox2.Text = GetMaxPlayers(lines);
                     textBox3.Text = GetMotd(lines);
 
@@ -28,7 +30,28 @@ namespace Alice_v._3._1
                 {
                     MessageBox.Show($"Server Properties file not found in {filePath}");
                 }
+
+                if (File.Exists(Path.Combine(executablePath, "versions", selectedVersion, "UID.json")))
+                {
+                    string UIDs = File.ReadAllText(Path.Combine(executablePath, "versions", selectedVersion, "UID.json"));
+                    UID = JsonConvert.DeserializeObject<Dictionary<string, string>>(UIDs);
+
+                    if (UID.Count > 0)
+                    {
+                        foreach (var item in UID)
+                        {
+                            listBox1.Items.Add(item.Value);
+                        }
+                    }
+                }
             }
+
+            listBox1.Visible = false;
+            listBox2.Visible = false;
+            label4.Visible = false;
+            button3.Visible = false;
+            label5.Visible = false;
+            label6.Visible = false;
         }
 
         #region Functions
@@ -106,6 +129,9 @@ namespace Alice_v._3._1
             Settings.Default.Players = textBox2.Text;
             Settings.Default.Motd = textBox3.Text;
 
+            string json = JsonConvert.SerializeObject(UID, Formatting.Indented);
+            File.WriteAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "versions", selectedVersion, "UID.json"), json);
+
             this.Close();
         }
 
@@ -125,5 +151,56 @@ namespace Alice_v._3._1
             }
         }
         #endregion
+
+        private void label7_DoubleClick(object sender, EventArgs e)
+        {
+            listBox1.Visible = true;
+            listBox2.Visible = true;
+            label4.Visible = true;
+            button3.Visible = true;
+            label5.Visible = true;
+            label6.Visible = true;
+
+            this.Size = new Size(441, 378);
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string IP = listBox1.SelectedItem.ToString();
+            List<string> user = new List<string>();
+            listBox2.Items.Clear();
+
+            foreach (var item in UID)
+            {
+                if (item.Value == IP)
+                {
+                    user.Add(item.Key);
+                }
+            }
+
+            foreach (var item in user)
+            {
+                listBox2.Items.Add(item);
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (listBox2.SelectedIndex != null)
+            {
+                UID.Remove(listBox2.SelectedItem.ToString());
+
+                listBox1.Items.Clear();
+                listBox2.Items.Clear();
+
+                if (UID.Count > 0)
+                {
+                    foreach (var item in UID)
+                    {
+                        listBox1.Items.Add(item.Value);
+                    }
+                }
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@ namespace Alice_v._3._2.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.6.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.10.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -25,10 +25,10 @@ namespace Alice_v._3._2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string Version {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int Version {
             get {
-                return ((string)(this["Version"]));
+                return ((int)(this["Version"]));
             }
             set {
                 this["Version"] = value;
@@ -37,10 +37,10 @@ namespace Alice_v._3._2.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string StartType {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int StartType {
             get {
-                return ((string)(this["StartType"]));
+                return ((int)(this["StartType"]));
             }
             set {
                 this["StartType"] = value;
@@ -92,6 +92,102 @@ namespace Alice_v._3._2.Properties {
             }
             set {
                 this["LauncherVersion"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public string minRAM {
+            get {
+                return ((string)(this["minRAM"]));
+            }
+            set {
+                this["minRAM"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("4")]
+        public string maxRAM {
+            get {
+                return ((string)(this["maxRAM"]));
+            }
+            set {
+                this["maxRAM"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public int saveFreq {
+            get {
+                return ((int)(this["saveFreq"]));
+            }
+            set {
+                this["saveFreq"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int saveCount {
+            get {
+                return ((int)(this["saveCount"]));
+            }
+            set {
+                this["saveCount"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool chatDef {
+            get {
+                return ((bool)(this["chatDef"]));
+            }
+            set {
+                this["chatDef"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ipFilter {
+            get {
+                return ((bool)(this["ipFilter"]));
+            }
+            set {
+                this["ipFilter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool clientBan {
+            get {
+                return ((bool)(this["clientBan"]));
+            }
+            set {
+                this["clientBan"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string javaDirectory {
+            get {
+                return ((string)(this["javaDirectory"]));
+            }
+            set {
+                this["javaDirectory"] = value;
             }
         }
     }

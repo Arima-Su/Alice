@@ -1,6 +1,6 @@
 ﻿namespace Alice_v._3._1
 {
-    partial class Form3
+    partial class InstallWindow
     {
         /// <summary>
         /// Required designer variable.
